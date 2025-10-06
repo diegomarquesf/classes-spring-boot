@@ -1,7 +1,12 @@
 package br.com.diegomarques.classes.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+
 import java.io.Serializable;
 
+@Entity
+@PrimaryKeyJoinColumn(name = "id")
 public class Automovel extends Bem implements Serializable {
     private String placa;
     private int ano;
@@ -44,6 +49,6 @@ public class Automovel extends Bem implements Serializable {
 
     @Override
     public String getTipo() {
-        return "";
+        return "Automovel";
     }
 }

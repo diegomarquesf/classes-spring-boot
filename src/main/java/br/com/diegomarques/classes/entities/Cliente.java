@@ -1,9 +1,7 @@
 package br.com.diegomarques.classes.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.diegomarques.classes.entities.enums.ClassificadorEnum;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,18 +12,18 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private List<ISeguro> seguros;
-    private IClassificador classificador;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seguro> seguros;
 
     public Cliente() {
 
     }
 
-    public Cliente(Long id, String nome, List<ISeguro> seguros, IClassificador classificador) {
+    public Cliente(Long id, String nome, List<Seguro> seguros) {
         this.id = id;
         this.nome = nome;
         this.seguros = seguros;
-        this.classificador = classificador;
     }
 
     public Long getId() {
@@ -44,19 +42,15 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public List<ISeguro> getSeguros() {
+    public List<Seguro> getSeguros() {
         return seguros;
     }
 
-    public void setSeguros(List<ISeguro> seguros) {
+    public void setSeguros(List<Seguro> seguros) {
         this.seguros = seguros;
     }
 
-    public IClassificador getClassificador() {
-        return classificador;
-    }
-
-    public void setClassificador(IClassificador classificador) {
-        this.classificador = classificador;
+    public ClassificadorEnum getClassificacao() {
+        return new Classificador().classificar(this);
     }
 }

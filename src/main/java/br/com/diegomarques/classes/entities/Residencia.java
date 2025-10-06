@@ -1,10 +1,12 @@
 package br.com.diegomarques.classes.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 import java.io.Serializable;
 
 @Entity
+@PrimaryKeyJoinColumn(name = "id")
 public class Residencia extends Bem implements Serializable {
     private String endereco;
     private double area;
@@ -47,6 +49,6 @@ public class Residencia extends Bem implements Serializable {
 
     @Override
     public String getTipo() {
-        return "";
+        return "Residencia";
     }
 }
